@@ -1,11 +1,14 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 
 interface UploadScreenProps {
   onUpload: (imageUrl: string) => void;
 }
 
 const UploadScreen: React.FC<UploadScreenProps> = ({ onUpload }) => {
+  const galleryInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -28,10 +31,30 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onUpload }) => {
         </button>
       </div>
 
-      <div className="w-full flex flex-col items-center">
-        <label className="relative w-full max-w-[320px] aspect-square flex flex-col items-center justify-center border-2 border-dashed border-primary/30 rounded-[40px] bg-primary/5 cursor-pointer group hover:bg-primary/10 transition-all overflow-hidden shadow-2xl">
-          <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-          
+      <div className="w-full flex flex-col items-center gap-6">
+        {/* Gallery Input */}
+        <input 
+          ref={galleryInputRef}
+          type="file" 
+          className="hidden" 
+          accept="image/*" 
+          onChange={handleFileChange} 
+        />
+        
+        {/* Camera Input - Specific for mobile capture */}
+        <input 
+          ref={cameraInputRef}
+          type="file" 
+          className="hidden" 
+          accept="image/*" 
+          capture="environment"
+          onChange={handleFileChange} 
+        />
+
+        <button 
+          onClick={() => galleryInputRef.current?.click()}
+          className="relative w-full max-w-[320px] aspect-square flex flex-col items-center justify-center border-2 border-dashed border-primary/30 rounded-[40px] bg-primary/5 cursor-pointer group hover:bg-primary/10 transition-all overflow-hidden shadow-2xl"
+        >
           <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl rounded-full pointer-events-none -z-10"></div>
           
           <div className="flex flex-col items-center text-center p-6 space-y-4">
@@ -39,13 +62,21 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onUpload }) => {
               <span className="material-symbols-outlined text-5xl">add_a_photo</span>
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-1">Cargar Foto</h2>
+              <h2 className="text-2xl font-bold mb-1">Subir Foto</h2>
               <p className="text-white/40 text-sm max-w-[200px] leading-tight">
-                Selecciona una fotografía de tu dispositivo para comenzar.
+                Toca para abrir la galería
               </p>
             </div>
           </div>
-        </label>
+        </button>
+
+        <button 
+          onClick={() => cameraInputRef.current?.click()}
+          className="w-full max-w-[320px] h-16 bg-white/5 rounded-2xl flex items-center justify-center gap-3 font-semibold text-lg hover:bg-white/10 transition-all active:scale-[0.98] border border-white/5"
+        >
+          <span className="material-symbols-outlined">photo_camera</span>
+          Abrir Cámara
+        </button>
       </div>
 
       <div className="absolute bottom-12 w-full px-12 flex flex-col items-center space-y-4">

@@ -1,5 +1,5 @@
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FILTERS } from '../constants';
 import { AppState } from '../types';
 
@@ -10,6 +10,8 @@ interface SaveScreenProps {
 }
 
 const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
+  const [isSaving, setIsSaving] = useState(false);
+
   const activeFilter = useMemo(() => 
     FILTERS.find(f => f.id === state.selectedFilter) || FILTERS[0]
   , [state.selectedFilter]);
@@ -32,6 +34,72 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
     filterStr += ` brightness(${state.brightness}%) contrast(${state.contrast}%) saturate(${state.saturation}%)`;
     return filterStr;
   }, [activeFilter, state.intensity, state.brightness, state.contrast, state.saturation]);
+
+  const handleDownload = async () => {
+    if (!state.image) return;
+    setIsSaving(true);
+
+    try {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      // Essential for downloading images from external URLs without security errors
+      img.crossOrigin = "anonymous";
+      img.src = state.image;
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      // Set canvas size to original image size
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+
+      if (ctx) {
+        // 1. Apply Filters
+        ctx.filter = appliedFilterStyle;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // Reset filter for text
+        ctx.filter = 'none';
+
+        // 2. Draw Text
+        if (state.text.content) {
+          const fontSize = Math.max(40, canvas.width / 15); // Dynamic font size
+          ctx.font = `bold ${fontSize}px Inter, sans-serif`;
+          ctx.fillStyle = 'white';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          
+          // Shadow/Glow effect matching CSS
+          ctx.shadowColor = 'rgba(0,0,0,0.8)';
+          ctx.shadowBlur = fontSize / 2;
+          ctx.shadowOffsetY = fontSize / 5;
+
+          const x = (canvas.width * state.text.x) / 100;
+          const y = (canvas.height * state.text.y) / 100;
+          
+          ctx.fillText(state.text.content.toUpperCase(), x, y);
+        }
+
+        // 3. Trigger Download
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        const link = document.createElement('a');
+        link.download = `foto-edit-${Date.now()}.jpg`;
+        link.href = dataUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (error) {
+      console.error("Error saving image:", error);
+      alert("Hubo un error al procesar la imagen. Intenta con otra foto.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <div className="flex-1 flex flex-col bg-background-dark animate-fadeIn">
@@ -76,9 +144,17 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
       </main>
 
       <footer className="p-6 space-y-3">
-        <button className="w-full h-14 bg-primary rounded-2xl flex items-center justify-center gap-2 font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95">
-          <span className="material-symbols-outlined">download</span>
-          Descargar Foto
+        <button 
+          onClick={handleDownload}
+          disabled={isSaving}
+          className="w-full h-14 bg-primary rounded-2xl flex items-center justify-center gap-2 font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95 disabled:opacity-50 disabled:scale-100"
+        >
+          {isSaving ? (
+            <span className="material-symbols-outlined animate-spin">progress_activity</span>
+          ) : (
+            <span className="material-symbols-outlined">download</span>
+          )}
+          {isSaving ? 'Procesando...' : 'Descargar Foto'}
         </button>
         <button onClick={onBack} className="w-full h-14 bg-white/5 rounded-2xl flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/10 transition-transform active:scale-95">
           <span className="material-symbols-outlined">palette</span>
