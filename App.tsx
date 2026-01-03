@@ -65,8 +65,8 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex justify-center min-h-screen bg-background-dark overflow-hidden">
-      <div className="w-full max-w-md bg-background-dark relative shadow-2xl overflow-hidden flex flex-col">
+    <div className="flex justify-center min-h-screen bg-[#BDC3C7] overflow-hidden text-slate-800">
+      <div className="w-full max-w-md bg-[#BDC3C7] relative shadow-2xl overflow-hidden flex flex-col">
         {state.screen === AppScreen.UPLOAD && (
           <UploadScreen onUpload={handleUpload} />
         )}

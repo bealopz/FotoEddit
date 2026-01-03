@@ -102,19 +102,17 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-background-dark animate-fadeIn">
+    <div className="flex-1 flex flex-col animate-fadeIn">
       <header className="flex items-center justify-between px-4 py-4 z-20">
-        <button onClick={onBack} className="size-10 flex items-center justify-center rounded-full hover:bg-white/10">
+        <button onClick={onBack} className="size-10 flex items-center justify-center rounded-full hover:bg-black/5 text-slate-700">
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <h1 className="font-bold text-lg">Resultado</h1>
+        <h1 className="font-bold text-lg text-slate-800">Resultado</h1>
         <div className="size-10"></div>
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 relative">
-        <div className="absolute w-full h-full bg-gradient-to-tr from-green-500/10 via-blue-500/10 to-purple-500/10 blur-[80px] rounded-full"></div>
-        
-        <div className="relative w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10 bg-black">
+        <div className="relative w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white bg-black">
           <img 
             src={state.image!} 
             alt="Final result" 
@@ -147,7 +145,7 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
         <button 
           onClick={handleDownload}
           disabled={isSaving}
-          className="w-full h-14 bg-primary rounded-2xl flex items-center justify-center gap-2 font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95 disabled:opacity-50 disabled:scale-100"
+          className="w-full h-14 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95 disabled:opacity-50 disabled:scale-100"
         >
           {isSaving ? (
             <span className="material-symbols-outlined animate-spin">progress_activity</span>
@@ -156,11 +154,11 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
           )}
           {isSaving ? 'Procesando...' : 'Descargar Foto'}
         </button>
-        <button onClick={onBack} className="w-full h-14 bg-white/5 rounded-2xl flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/10 transition-transform active:scale-95">
+        <button onClick={onBack} className="w-full h-14 bg-white/60 text-slate-800 rounded-2xl flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/80 transition-transform active:scale-95 border border-white/20">
           <span className="material-symbols-outlined">palette</span>
           Editar más
         </button>
-        <button onClick={onNew} className="w-full py-4 text-white/40 hover:text-white/60 font-medium">
+        <button onClick={onNew} className="w-full py-4 text-slate-500 hover:text-slate-700 font-medium">
           Empezar Nueva
         </button>
       </footer>
