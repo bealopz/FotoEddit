@@ -1,5 +1,5 @@
 {
-  "name": "FotoEdit - Editor de Fotos Pastel",
+  "name": "FotoEdit",
   "description": "Una aplicación de edición de fotos elegante y minimalista con una estética de tonos pastel modernos, que permite aplicar filtros, ajustar intensidad y guardar tus creaciones.",
   "requestFramePermissions": [
     "camera"

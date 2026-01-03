@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState, useRef } from 'react';
 import { FILTERS } from '../constants';
 import { GoogleGenAI } from "@google/genai";
@@ -52,6 +51,9 @@ const EditScreen: React.FC<EditScreenProps> = ({
   }, [activeFilter, state.intensity, state.brightness, state.contrast, state.saturation]);
 
   const handleSuggestText = async () => {
+    // The API key must be obtained exclusively from the environment variable process.env.API_KEY.
+    // We assume this variable is pre-configured, valid, and accessible.
+    
     setIsGeneratingText(true);
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
@@ -60,21 +62,20 @@ const EditScreen: React.FC<EditScreenProps> = ({
       
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: [
-          {
-            parts: [
-              { text: "Analiza esta imagen y sugiere una frase corta, poética y moderna (máximo 4 palabras) en español para usar como pie de foto. Solo devuelve la frase, sin comillas." },
-              { inlineData: { data: base64Data, mimeType: 'image/jpeg' } }
-            ]
-          }
-        ]
+        contents: {
+          parts: [
+            { text: "Analiza esta imagen y sugiere una frase corta, poética y moderna (máximo 4 palabras) en español para usar como pie de foto. Solo devuelve la frase, sin comillas." },
+            { inlineData: { data: base64Data, mimeType: 'image/jpeg' } }
+          ]
+        }
       });
       
       const suggested = response.text || '';
       onUpdate({ text: { ...state.text, content: suggested.trim() } });
     } catch (error) {
       console.error("Error generating text:", error);
-      alert("Error al conectar con la IA. Verifica tu cuota o conexión.");
+      // We do not ask the user for the API key in the UI.
+      alert("Error al conectar con la IA. Verifica tu conexión.");
     } finally {
       setIsGeneratingText(false);
     }
