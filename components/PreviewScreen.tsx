@@ -14,7 +14,7 @@ const PreviewScreen: React.FC<PreviewScreenProps> = ({ image, onBack, onContinue
       <header className="flex items-center px-4 py-4 z-20">
         <button 
           onClick={onBack}
-          className="size-10 flex items-center justify-center rounded-full hover:bg-black/5 transition-colors text-slate-700"
+          className="size-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-700"
         >
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
@@ -22,7 +22,7 @@ const PreviewScreen: React.FC<PreviewScreenProps> = ({ image, onBack, onContinue
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 relative">
-        <div className="w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white relative bg-black">
+        <div className="w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-slate-100 relative bg-black">
           <img src={image} alt="Preview" className="w-full h-full object-cover" />
         </div>
         
@@ -42,7 +42,7 @@ const PreviewScreen: React.FC<PreviewScreenProps> = ({ image, onBack, onContinue
         
         <button 
           onClick={onCancel}
-          className="w-full h-14 bg-white/60 text-slate-800 rounded-2xl flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/80 transition-all active:scale-[0.98] border border-white/20"
+          className="w-full h-14 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center gap-2 font-semibold text-lg hover:bg-slate-200 transition-all active:scale-[0.98] border border-transparent"
         >
           <span className="material-symbols-outlined text-xl">image_search</span>
           Elegir otra

@@ -26,7 +26,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onUpload }) => {
     <div className="flex-1 flex flex-col p-6 animate-fadeIn items-center justify-center">
       <div className="absolute top-8 left-0 right-0 px-6 flex items-center justify-between w-full">
         <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">FotoEdit</h1>
-        <button className="p-2 rounded-full hover:bg-black/5 transition-colors text-slate-700">
+        <button className="p-2 rounded-full hover:bg-slate-100 transition-colors text-slate-700">
           <span className="material-symbols-outlined">settings</span>
         </button>
       </div>
@@ -53,7 +53,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onUpload }) => {
 
         <button 
           onClick={() => galleryInputRef.current?.click()}
-          className="relative w-full max-w-[320px] aspect-square flex flex-col items-center justify-center border-2 border-dashed border-slate-300 rounded-[40px] bg-white/40 cursor-pointer group hover:bg-white/60 transition-all overflow-hidden shadow-xl"
+          className="relative w-full max-w-[320px] aspect-square flex flex-col items-center justify-center border-2 border-dashed border-slate-200 rounded-[40px] bg-slate-50 cursor-pointer group hover:bg-slate-100 transition-all overflow-hidden shadow-sm hover:shadow-md"
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl rounded-full pointer-events-none -z-10"></div>
           
@@ -72,7 +72,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onUpload }) => {
 
         <button 
           onClick={() => cameraInputRef.current?.click()}
-          className="w-full max-w-[320px] h-16 bg-white/60 rounded-2xl flex items-center justify-center gap-3 font-semibold text-lg hover:bg-white/80 transition-all active:scale-[0.98] border border-white/20 text-slate-800 shadow-sm"
+          className="w-full max-w-[320px] h-16 bg-slate-50 rounded-2xl flex items-center justify-center gap-3 font-semibold text-lg hover:bg-slate-100 transition-all active:scale-[0.98] border border-slate-200 text-slate-800 shadow-sm"
         >
           <span className="material-symbols-outlined">photo_camera</span>
           Abrir Cámara
@@ -80,7 +80,7 @@ const UploadScreen: React.FC<UploadScreenProps> = ({ onUpload }) => {
       </div>
 
       <div className="absolute bottom-12 w-full px-12 flex flex-col items-center space-y-4">
-        <div className="text-[10px] uppercase tracking-[0.2em] text-slate-800/40 font-bold">Estilo Pastel Minimalista</div>
+        <div className="text-[10px] uppercase tracking-[0.2em] text-slate-800/40 font-bold">Estilo Minimalista</div>
       </div>
     </div>
   );

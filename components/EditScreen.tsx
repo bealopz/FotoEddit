@@ -1,3 +1,4 @@
+
 import React, { useMemo, useState, useRef } from 'react';
 import { FILTERS } from '../constants';
 import { GoogleGenAI } from "@google/genai";
@@ -112,7 +113,7 @@ const EditScreen: React.FC<EditScreenProps> = ({
   return (
     <div className="flex-1 flex flex-col h-full animate-fadeIn">
       <header className="flex items-center justify-between px-4 py-4 z-20">
-        <button onClick={onBack} className="size-10 flex items-center justify-center rounded-full hover:bg-black/5 transition-colors text-slate-700">
+        <button onClick={onBack} className="size-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-700">
           <span className="material-symbols-outlined">close</span>
         </button>
         <h1 className="font-bold text-lg text-slate-800">Editor</h1>
@@ -124,7 +125,7 @@ const EditScreen: React.FC<EditScreenProps> = ({
       <main className="flex-1 relative flex items-center justify-center p-4">
         <div 
           ref={containerRef}
-          className={`relative transition-all duration-500 overflow-hidden flex items-center justify-center bg-black rounded-2xl shadow-2xl ring-4 ring-white
+          className={`relative transition-all duration-500 overflow-hidden flex items-center justify-center bg-black rounded-2xl shadow-2xl ring-4 ring-slate-100
             ${aspectRatio === '1:1' ? 'aspect-square w-full max-w-[340px]' : 
               aspectRatio === '4:5' ? 'aspect-[4/5] w-full max-w-[340px]' : 
               aspectRatio === '16:9' ? 'aspect-[16/9] w-full' : 'max-h-full w-auto'}`}
@@ -157,7 +158,7 @@ const EditScreen: React.FC<EditScreenProps> = ({
         </div>
       </main>
 
-      <section className="bg-white/60 backdrop-blur-xl border-t border-white/20 rounded-t-[40px] p-6 pb-10 space-y-6 z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+      <section className="bg-slate-50 backdrop-blur-xl border-t border-slate-100 rounded-t-[40px] p-6 pb-10 space-y-6 z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
         <div className="min-h-[140px] flex flex-col justify-center">
           {mode === 'filters' && (
             <div className="space-y-6">
@@ -223,7 +224,7 @@ const EditScreen: React.FC<EditScreenProps> = ({
                   value={state.text.content}
                   onChange={(e) => onUpdate({ text: { ...state.text, content: e.target.value } })}
                   placeholder="Texto..."
-                  className="flex-1 bg-white/40 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-sm transition-colors text-slate-800 placeholder-slate-400"
+                  className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-primary text-sm transition-colors text-slate-800 placeholder-slate-400"
                 />
                 <button 
                   onClick={handleSuggestText}

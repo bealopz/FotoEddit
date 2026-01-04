@@ -104,7 +104,7 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
   return (
     <div className="flex-1 flex flex-col animate-fadeIn">
       <header className="flex items-center justify-between px-4 py-4 z-20">
-        <button onClick={onBack} className="size-10 flex items-center justify-center rounded-full hover:bg-black/5 text-slate-700">
+        <button onClick={onBack} className="size-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-700">
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
         <h1 className="font-bold text-lg text-slate-800">Resultado</h1>
@@ -112,7 +112,7 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 relative">
-        <div className="relative w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white bg-black">
+        <div className="relative w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-slate-100 bg-black">
           <img 
             src={state.image!} 
             alt="Final result" 
@@ -154,7 +154,7 @@ const SaveScreen: React.FC<SaveScreenProps> = ({ state, onNew, onBack }) => {
           )}
           {isSaving ? 'Procesando...' : 'Descargar Foto'}
         </button>
-        <button onClick={onBack} className="w-full h-14 bg-white/60 text-slate-800 rounded-2xl flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/80 transition-transform active:scale-95 border border-white/20">
+        <button onClick={onBack} className="w-full h-14 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center gap-2 font-semibold text-lg hover:bg-slate-200 transition-transform active:scale-95 border border-transparent">
           <span className="material-symbols-outlined">palette</span>
           Editar más
         </button>
